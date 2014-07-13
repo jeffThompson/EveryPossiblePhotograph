@@ -1,8 +1,8 @@
 
-import de.bezier.math.combinatorics.*;    // for combination-generations
+import de.bezier.math.combinatorics.*;    // for combination-generation
 import java.math.BigInteger;              // for the huge resulting numbers :)
-import java.awt.Robot;                    // for simulating mouse wiggle to hide cursor...
-import java.awt.AWTException;             // (a hack)
+import java.awt.Robot;                    // for simulating mouse wiggle to hide cursor (a hack)
+import java.awt.AWTException;
 import java.awt.event.InputEvent;
 
 /*
@@ -13,7 +13,7 @@ EVERY POSSIBLE PHOTOGRAPH (v4)
  computationally, offsetting from Niepce's first recorded 
  photographic image (ca 1826).
  
- Runs using OpenGL, as (for whatever reason) it doubles our
+ Runs using OpenGL, because (for whatever reason) it doubles our
  frame-rate!
  
  Niepce image via:
@@ -24,33 +24,32 @@ EVERY POSSIBLE PHOTOGRAPH (v4)
  
  REQUIRES:
  + Combinatorics library by Florian Jenett
- - https://github.com/fjenett/combinatorics
- 
- TO DO:
- + better spacing (% of width?)
+   - https://github.com/fjenett/combinatorics
  
  */
 
 // SETUP VARIABLES
-int numItems = 4;              // colors to choose from - should not be more than 26
+int numItems =          4;     // colors to choose from - should not be more than 26
 
-final int columns = 11;        // # of images across
-final int rows = 8;            // ditto vertical
+final int columns =     11;    // # of images across
+final int rows =        8;     // ditto vertical
 
-final int pxWide = 30;         // image size
-final int pxHigh = 20;
-final int pad = 40;            // space between images, in px
+final int pxWide =      30;    // image size
+final int pxHigh =      20;
+final int pad =         40;    // space between images, in px
 
-final int xOffset = 0;         // a hack to center the images... :(
-final int yOffset = 0;
+final int xOffset =     0;     // a hack to center the images... :(
+final int yOffset =     0;
 final int textYOffset = 50;    // distance from bottom for text
 
-final int warm = 0;                           // warms up grays (0 = none, pos = warmer, neg = colder)
-final int colorStep = 255/(numItems-1);       // step from 0-255 for color, based on number of items
+final int warm =         0;                   // warms up grays (0 = none, pos = warmer, neg = colder)
+final int colorStep =    255/(numItems-1);    // step from 0-255 for color, based on number of items
 
-final int saveInterval = 1 * (60 * 1000);     // interval (in minutes) to save current state
+boolean showDebug =      false;               // show framerate, etc ('d' to toggle)
 
-boolean showDebug = false;                    // show framerate, etc ('d' to toggle)
+final int saveInterval = 1 * (60 * 1000);                          // interval (in minutes) to save current state
+String desktop =         "/Users/JeffThompson/Desktop/";           // path to desktop, for app version
+
 
 // MISC VARIABLES - DO NOT CHANGE
 int pxSize, imgWidth, imgHeight;                                   // image size, set after size()
@@ -63,7 +62,6 @@ BigInteger whichStep;                                              // keep track
 String count;
 String[] countString = new String[1];                                     // array for storing previous count (only 1 item!)
 BigInteger countStep = new BigInteger(Integer.toString(columns*rows));    // value to increment overall count
-String desktop = "/Users/JeffThompson/Desktop/";                          // path to desktop, for app version
 Robot robot;                                                              // a hack to hide the cursor
 
 
